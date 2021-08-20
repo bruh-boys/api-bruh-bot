@@ -1,5 +1,4 @@
-{
-	"services": [
+[
 		{
 			"url": "https://pizzahut.ru/account/password-reset",
 			"data": "{'reset_by':'phone', 'action_id':'pass-recovery', 'phone': '%phone5%', '_token':'*'}"
@@ -228,4 +227,3 @@
 			"data": "{'phone': '%phone%'}"
 		}
 	]
-}

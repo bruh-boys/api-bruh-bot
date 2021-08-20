@@ -1,26 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"os"
-
-	"github.com/bruh-boys/api-bruh-bot/src/routes"
-	"github.com/gorilla/mux"
+	"github.com/bruh-boys/api-bruh-bot/src/router"
 )
 
 func main() {
-
-	r := mux.NewRouter().StrictSlash(true)
-
-	r.HandleFunc("/", routes.IndexRoute)
-	r.HandleFunc("/sms", routes.ShowExample).Methods("GET")
-	r.HandleFunc("/sms", routes.SmsSpam).Methods("POST")
-	port, ok := os.LookupEnv("PORT")
-
-	if ok == false {
-		port = "5000"
-	}
-	fmt.Printf("Api on port: %s", port)
-	http.ListenAndServe(":"+port, r)
+	router.SetupRoutes()
 }
