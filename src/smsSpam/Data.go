@@ -1,7 +1,8 @@
 package smsSpam
 
 var (
-	email = []string{"mail.ru",
+	timeout = 10
+	email   = []string{"mail.ru",
 		"inbox.ru",
 		"list.ru",
 		"bk.ru",

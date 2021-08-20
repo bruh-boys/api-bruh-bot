@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 )
-
+//this get a random service
 func getServices() Phones {
 
 	f, _ := ioutil.ReadFile("services/services.json")
@@ -14,7 +14,8 @@ func getServices() Phones {
 	return phones
 }
 
-func normalize(phone string) string {
+// this is going to rebuild the phone number
+func Normalize(phone string) string {
 
 	if phone[0] == '+' {
 		phone = phone[1:]
@@ -22,7 +23,7 @@ func normalize(phone string) string {
 	}
 	return phone
 }
-
+// this is for %phone5% numbers
 func transformNumber(phone string, i int) string {
 
 	if i == 5 {
