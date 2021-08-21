@@ -15,10 +15,11 @@ func parse(phone string, service map[string]string) (map[string]string, string) 
 
 	payload := map[string]string{"url": service["url"]}
 	if _, exist := service["data"]; exist {
-
+		payload := map[string]string{}
 		json.NewDecoder(bytes.NewBuffer([]byte(service["data"]))).Decode(&payload)
 		dataType = "data"
 	} else if _, exist := service["json"]; exist {
+		payload := map[string]string{}
 		json.NewDecoder(bytes.NewBuffer([]byte(service["data"]))).Decode(&payload)
 		dataType = "json"
 	}
@@ -75,7 +76,7 @@ func SendRequest(phone string) error {
 				req.Header.Set(key, val)
 			}
 		}
-
+		break
 	case "json":
 		for i := 0; i <= 10; i++ {
 			byt := new(bytes.Buffer)
@@ -88,9 +89,11 @@ func SendRequest(phone string) error {
 				req.Header.Set(key, val)
 			}
 		}
+		break
 
 	case "url":
 		for i := 0; i <= 10; i++ {
+			log.Println(payload["url"], "url")
 			req, err := client.Post(payload["url"], "", nil)
 			if err != nil {
 				return err
@@ -100,6 +103,7 @@ func SendRequest(phone string) error {
 			}
 
 		}
+		break
 	}
 	return nil
 }

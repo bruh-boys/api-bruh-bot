@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"strconv"
+	"time"
 )
 
 func randomName() string {
@@ -31,11 +32,13 @@ func randomUserAgent() string {
 	var userAgent []string
 	f, _ := ioutil.ReadFile("jsons/user-agent.json")
 	json.NewDecoder(bytes.NewReader(f)).Decode(&userAgent)
+	rand.Seed(time.Now().UnixNano())
 	return string(userAgent[rand.Intn(len(userAgent))])
 }
 
 func randomService() map[string]string {
 	p := getServices()
+	rand.Seed(time.Now().UnixNano())
 
 	return p[rand.Intn(len(p))]
 }
