@@ -10,7 +10,6 @@ routes:
 example request with python (sms):
 
 ```py
-
 import requests
 
 r = requests.post("https://api-bruh-bot.elpanajose.repl.co/sms",
@@ -18,7 +17,7 @@ r = requests.post("https://api-bruh-bot.elpanajose.repl.co/sms",
 print(r.text)
 ```
 
-email
+email:
 
 ```py
 import requests

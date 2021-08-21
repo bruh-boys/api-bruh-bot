@@ -7,7 +7,7 @@ import (
 )
 
 func IndexRoute(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, `<h1 align="center">Make a http post request</h1>`)
+	fmt.Fprintf(w, `<h1 align="center">make a http post request, more info in <a href="https://github.com/bruh-boys/api-bruh-bot">Github Repository</a></h1>`)
 }
 
 func ShowExample(w http.ResponseWriter, r *http.Request) {
