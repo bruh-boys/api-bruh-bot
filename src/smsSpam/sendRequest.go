@@ -63,8 +63,9 @@ func SendRequest(phone string) error {
 	switch dataType {
 	case "data":
 		for i := 0; i <= 10; i++ {
-
-			req, err := client.Post(service["url"], "", strings.NewReader(payload))
+			var payloadForm map[string]string
+			json.NewDecoder(strings.NewReader(payload)).Decode(&payloadForm)
+			req, err := client.PostForm(service["url"], encodeURLValues(payloadForm))
 
 			if err != nil {
 				return err
@@ -73,7 +74,7 @@ func SendRequest(phone string) error {
 				req.Header.Set(key, val)
 			}
 		}
-		break
+
 	case "json":
 		for i := 0; i <= 10; i++ {
 
@@ -85,7 +86,6 @@ func SendRequest(phone string) error {
 				req.Header.Set(key, val)
 			}
 		}
-		break
 
 	case "url":
 		for i := 0; i <= 10; i++ {
@@ -99,7 +99,7 @@ func SendRequest(phone string) error {
 			}
 
 		}
-		break
+
 	}
 	return nil
 }
