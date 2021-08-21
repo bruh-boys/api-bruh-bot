@@ -10,17 +10,15 @@ import (
 	"time"
 )
 
-func parse(phone string, service map[string]string) (map[string]string, string) {
+func parse(phone string, service map[string]string) (string, string) {
 	dataType := ""
 
-	payload := map[string]string{"url": service["url"]}
+	payload := service["url"]
 	if _, exist := service["data"]; exist {
-		payload := map[string]string{}
-		json.NewDecoder(bytes.NewBuffer([]byte(service["data"]))).Decode(&payload)
+		payload = service["data"]
 		dataType = "data"
 	} else if _, exist := service["json"]; exist {
-		payload := map[string]string{}
-		json.NewDecoder(bytes.NewBuffer([]byte(service["data"]))).Decode(&payload)
+		payload = service["data"]
 		dataType = "json"
 	}
 	for key, val := range map[string]string{
@@ -30,9 +28,8 @@ func parse(phone string, service map[string]string) (map[string]string, string) 
 		`%name%`:     randomName(),
 		`%email%`:    randomEmail(),
 		`%password%`: randomPass()} {
-		for keyP, valP := range payload {
-			payload[keyP] = strings.Replace(valP, key, val, -1)
-		}
+
+		payload = strings.Replace(payload, key, val, -1)
 
 	}
 	return payload, dataType
@@ -67,8 +64,8 @@ func SendRequest(phone string) error {
 	case "data":
 		for i := 0; i <= 10; i++ {
 
-			req, err := client.PostForm(service["url"], encodeURLValues(payload))
-			log.Println(encodeURLValues(payload))
+			req, err := client.Post(service["url"], "", strings.NewReader(payload))
+
 			if err != nil {
 				return err
 			}
@@ -79,9 +76,8 @@ func SendRequest(phone string) error {
 		break
 	case "json":
 		for i := 0; i <= 10; i++ {
-			byt := new(bytes.Buffer)
-			json.NewEncoder(byt).Encode(payload)
-			req, err := client.Post(service["url"], "application/json", byt)
+
+			req, err := client.Post(service["url"], "application/json", strings.NewReader(payload))
 			if err != nil {
 				return err
 			}
@@ -93,8 +89,8 @@ func SendRequest(phone string) error {
 
 	case "url":
 		for i := 0; i <= 10; i++ {
-			log.Println(payload["url"], "url")
-			req, err := client.Post(payload["url"], "", nil)
+			log.Println(payload)
+			req, err := client.Post(payload, "", nil)
 			if err != nil {
 				return err
 			}
