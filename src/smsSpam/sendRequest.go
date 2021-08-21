@@ -3,6 +3,7 @@ package smsSpam
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -40,6 +41,7 @@ func encodeURLValues(params map[string]string) url.Values {
 	for key, value := range params {
 		v[key] = []string{value}
 	}
+
 	return v
 
 }
@@ -65,6 +67,7 @@ func SendRequest(phone string) error {
 		for i := 0; i <= 10; i++ {
 
 			req, err := client.PostForm(service["url"], encodeURLValues(payload))
+			log.Println(encodeURLValues(payload))
 			if err != nil {
 				return err
 			}
@@ -75,7 +78,9 @@ func SendRequest(phone string) error {
 
 	case "json":
 		for i := 0; i <= 10; i++ {
-			req, err := client.Post(service["url"], "application/json", bytes.NewBuffer([]byte(payload["json"])))
+			byt := new(bytes.Buffer)
+			json.NewEncoder(byt).Encode(payload)
+			req, err := client.Post(service["url"], "application/json", byt)
 			if err != nil {
 				return err
 			}
