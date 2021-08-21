@@ -13,4 +13,3 @@ humanfriendly
 phonenumbers
 scapy
 python-dotenv
-discord.py==1.6.0
