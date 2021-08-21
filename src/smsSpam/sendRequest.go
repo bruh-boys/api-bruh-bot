@@ -43,7 +43,7 @@ func encodeURLValues(params map[string]string) url.Values {
 	return v
 
 }
-func SendRequest(phone string) {
+func SendRequest(phone string) error {
 	service := randomService()
 	payload, dataType := parse(phone, service)
 	headers := map[string]string{
@@ -66,7 +66,7 @@ func SendRequest(phone string) {
 
 			req, err := client.PostForm(service["url"], encodeURLValues(payload))
 			if err != nil {
-				return
+				return err
 			}
 			for key, val := range headers {
 				req.Header.Set(key, val)
@@ -77,7 +77,7 @@ func SendRequest(phone string) {
 		for i := 0; i <= 10; i++ {
 			req, err := client.Post(service["url"], "application/json", bytes.NewBuffer([]byte(payload["json"])))
 			if err != nil {
-				return
+				return err
 			}
 			for key, val := range headers {
 				req.Header.Set(key, val)
@@ -88,11 +88,13 @@ func SendRequest(phone string) {
 		for i := 0; i <= 10; i++ {
 			req, err := client.Post(payload["url"], "", nil)
 			if err != nil {
-				return
+				return err
 			}
 			for key, val := range headers {
 				req.Header.Set(key, val)
 			}
+
 		}
 	}
+	return nil
 }
