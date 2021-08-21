@@ -3,6 +3,7 @@ package smsSpam
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"math/rand"
 	"strconv"
@@ -36,5 +37,6 @@ func randomUserAgent() string {
 
 func randomService() map[string]string {
 	p := getServices()
+	fmt.Println(p)
 	return p[rand.Intn(len(p))]
 }

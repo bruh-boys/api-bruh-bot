@@ -41,5 +41,6 @@ func SmsSpam(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(duration.Seconds())
 
 	}
+	w.Write([]byte("by bruh boys"))
 
 }
