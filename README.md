@@ -4,7 +4,7 @@ routes:
 
 - /sms
 
-- /email
+- /email (Its not working beacuse the Host, but you can use it by yourself)
 
 
 example request with python (sms):
