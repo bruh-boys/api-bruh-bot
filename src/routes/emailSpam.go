@@ -28,7 +28,7 @@ func SpamEmail(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("request body:", validateEmail)
 		start := time.Now()
 		var stdout, stderr bytes.Buffer
-		cmd := exec.Command("sh", "-c", "python3 routes/impulse.py --method EMAIL --time 60 --target "+validateEmail)
+		cmd := exec.Command("sh", "-c", "python3 routes/impulse.py --method EMAIL --time 20 --threads 15 --target "+validateEmail)
 		cmd.Stdout = &stdout
 		cmd.Stderr = &stderr
 		peo := cmd.Run()
