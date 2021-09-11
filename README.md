@@ -33,7 +33,7 @@ print(r.text)
 
 - Then install all the python deps with ```pip3 install -r requirements.txt```
 
-- and finally in the ```/routes``` direcotry create a .env file with the following content
+- and finally in the ```/routes``` directory create a .env file with the following content
 
 ```
 EMAIL1=
