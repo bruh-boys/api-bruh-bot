@@ -5,12 +5,16 @@ import (
 	"net/http"
 	"os"
 
+	rl "github.com/ahmedash95/ratelimit"
 	"github.com/bruh-boys/api-bruh-bot/src/routes"
 	"github.com/gorilla/mux"
 )
 
-func main() {
+var ratelimit rl.Limit
 
+func main() {
+	// Create the limiter
+	ratelimit = rl.CreateLimit("1r/m")
 	r := mux.NewRouter().StrictSlash(true)
 
 	r.HandleFunc("/", routes.IndexRoute)
