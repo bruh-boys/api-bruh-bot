@@ -27,6 +27,16 @@ r = requests.post("https://api-bruh-bot.elpanajose.repl.co/email",
 print(r.text)
 ```
 
+<h1>Do you want to use it locally?</h1>
 
+- install al the go dependencies with ```go get .```
 
+- Then install all the python deps with ```pip3 install -r requirements.txt```
 
+- and finally in the ```/routes``` direcotry create a .env file with the following content
+
+```
+EMAIL1=
+EMAIL2=
+PASSWORD=
+```
